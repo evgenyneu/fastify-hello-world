@@ -1,12 +1,11 @@
-# Hono Hello World Benchmark
+# Fastify Hello World Benchmark
 
-This is a simple Hono (JavaScript) web app that returns "Hello, World!" response, made for benchmarking performance and resource usage and comparing it with [Axum (Rust)](https://github.com/evgenyneu/axum-hello-world) benchmark.
+This is a simple Fastify (Node.js) web app that returns "Hello, World!" response, made for benchmarking performance and resource usage and comparing it with [Axum (Rust)](https://github.com/evgenyneu/axum-hello-world) benchmark.
 
 ## Build
 
 ```sh
 npm install
-npm run build
 ```
 
 Run:
@@ -31,16 +30,10 @@ cd ~/fastify-hello-world
 npm install
 ```
 
-Run:
-
-```sh
-npm start
-```
-
 Run with one node process:
 
 ```sh
-node build/index.js
+npm start
 ```
 
 Run with clustering (utilize all CPU cores):
@@ -54,43 +47,36 @@ node cluster.js
 
 ### After reboot
 
-* RAM usage: 233M
-* CPU Load average (over 1 minute): 0.06
+* RAM usage:
+* CPU Load average (over 1 minute):
 
 ### Server running idle
 
-* Single node process: `node build/index.js`:
+* Single node process: `npm start`:
 
-* RAM usage: 250M
-* CPU Load average (over 1 minute): 0.03
+* RAM usage:
+* CPU Load average (over 1 minute):
 
 Clustering (utilize all CPU cores): `node cluster.js`:
 
-* RAM usage: 350M
-* CPU Load average (over 1 minute): 0.05
+* RAM usage:
+* CPU Load average (over 1 minute):
 
 ### Stress test #1
 
-With one node process: `node build/index.js`
+With one node process: `npm start`
 
 ```sh
 wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
 ```
 
-* RAM usage: 310M
-* CPU Load average (over 1 minutes): 1.14
+* RAM usage:
+* CPU Load average (over 1 minutes):
 
 Results:
 
 ```
-  10 threads and 1000 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   113.73ms   18.28ms   2.00s    93.51%
-    Req/Sec     0.86k   183.78     2.56k    85.13%
-  5108140 requests in 10.00m, 1.22GB read
-  Socket errors: connect 0, read 0, write 0, timeout 837
-Requests/sec:   8512.51
-Transfer/sec:      2.09MB
+
 ```
 
 ### Stress test #2 (six processes)
@@ -101,20 +87,13 @@ Six Node.js processes: `node cluster.js`
 wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
 ```
 
-* RAM usage: 581M
-* CPU Load average (over 1 minute): 7.37
+* RAM usage:
+* CPU Load average (over 1 minute):
 
 Results:
 
 ```
-  10 threads and 1000 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    40.50ms   30.44ms   1.98s    88.73%
-    Req/Sec     2.66k   381.37     5.16k    77.68%
-  15848237 requests in 10.00m, 3.79GB read
-  Socket errors: connect 0, read 0, write 0, timeout 521
-Requests/sec:  26409.34
-Transfer/sec:      6.47MB
+
 ```
 
 
@@ -126,22 +105,13 @@ Eight Node.js processes: `node cluster.js`
 wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
 ```
 
-* RAM usage: 682M
-* CPU Load average (over 1 minute): 9.19
+* RAM usage:
+* CPU Load average (over 1 minute):
 
 Results:
 
 ```
-wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
-Running 10m test @ http://192.168.20.25:3000/
-  10 threads and 1000 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    53.70ms  152.84ms   2.00s    97.62%
-    Req/Sec     2.85k   536.14     4.82k    70.44%
-  17003588 requests in 10.00m, 4.07GB read
-  Socket errors: connect 0, read 0, write 0, timeout 26650
-Requests/sec:  28334.61
-Transfer/sec:      6.94MB
+
 ```
 
 
@@ -157,20 +127,19 @@ curl -v http://192.168.20.25:3000/
 * Connected to 192.168.20.25 (192.168.20.25) port 3000
 > GET / HTTP/1.1
 > Host: 192.168.20.25:3000
-> User-Agent: curl/8.7.1
+> User-Agent: curl/8.5.0
 > Accept: */*
 >
-* Request completely sent off
 < HTTP/1.1 200 OK
-< content-type: text/plain;charset=UTF-8
-< x-filler: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+< x-filler: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+< content-type: text/plain; charset=utf-8
 < content-length: 13
-< Date: Wed, 25 Dec 2024 09:32:34 GMT
+< Date: Wed, 25 Dec 2024 20:55:05 GMT
 < Connection: keep-alive
-< Keep-Alive: timeout=5
+< Keep-Alive: timeout=72
 <
 * Connection #0 to host 192.168.20.25 left intact
-Hello, World
+Hello, World!
 ```
 
 Response size:
