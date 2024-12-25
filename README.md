@@ -1,4 +1,6 @@
 
+## Deploy
+
 ```sh
 rsync -av --exclude='node_modules' --exclude='.git' ./ lorange:~/fastify-hello-world/
 ```
