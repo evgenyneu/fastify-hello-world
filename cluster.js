@@ -13,5 +13,5 @@ if (cluster.isPrimary) {
     console.log(`worker ${worker.process.pid} died`);
   });
 } else {
-  // run the app
+  // Run the app
 }
