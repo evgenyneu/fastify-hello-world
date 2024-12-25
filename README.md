@@ -101,7 +101,14 @@ wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
 Results:
 
 ```
-
+  10 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    33.39ms   18.33ms   1.99s    99.48%
+    Req/Sec     3.03k   262.21     7.10k    88.38%
+  18054769 requests in 10.00m, 4.32GB read
+  Socket errors: connect 0, read 0, write 0, timeout 577
+Requests/sec:  30086.82
+Transfer/sec:      7.37MB
 ```
 
 ### Stress test #3 (four processes)
