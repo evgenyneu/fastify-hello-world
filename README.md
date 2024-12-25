@@ -47,20 +47,20 @@ node cluster.js
 
 ### After reboot
 
-* RAM usage:
-* CPU Load average (over 1 minute):
+* RAM usage: 238M
+* CPU Load average (over 1 minute): 0.07
 
 ### Server running idle
 
 * Single node process: `npm start`:
 
-* RAM usage:
-* CPU Load average (over 1 minute):
+* RAM usage: 275M
+* CPU Load average (over 1 minute): 0.05
 
 Clustering (utilize all CPU cores): `node cluster.js`:
 
-* RAM usage:
-* CPU Load average (over 1 minute):
+* RAM usage: 410M
+* CPU Load average (over 1 minute): 0.00
 
 ### Stress test #1
 
@@ -70,16 +70,24 @@ With one node process: `npm start`
 wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
 ```
 
-* RAM usage:
-* CPU Load average (over 1 minutes):
+* RAM usage: 317M
+* CPU Load average (over 1 minutes): 1.23
 
 Results:
 
 ```
-
+  10 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   101.21ms   15.83ms   1.98s    94.19%
+    Req/Sec     0.97k   141.74     3.95k    93.70%
+  5768476 requests in 10.00m, 1.38GB read
+  Socket errors: connect 0, read 0, write 0, timeout 795
+Requests/sec:   9612.71
+Transfer/sec:      2.36MB
 ```
 
-### Stress test #2 (six processes)
+
+### Stress test #2 (three processes)
 
 Six Node.js processes: `node cluster.js`
 
@@ -87,8 +95,8 @@ Six Node.js processes: `node cluster.js`
 wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
 ```
 
-* RAM usage:
-* CPU Load average (over 1 minute):
+* RAM usage: 422M
+* CPU Load average (over 1 minute): 3.57
 
 Results:
 
@@ -96,8 +104,56 @@ Results:
 
 ```
 
+### Stress test #3 (four processes)
 
-### Stress test #3 (eight processes)
+Six Node.js processes: `node cluster.js`
+
+```sh
+wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
+```
+
+* RAM usage: 450M
+* CPU Load average (over 1 minute): 4.82
+
+Results:
+
+```
+  10 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    30.88ms   36.53ms   1.99s    96.25%
+    Req/Sec     3.84k   453.06    16.00k    79.88%
+  22882405 requests in 10.00m, 5.48GB read
+  Socket errors: connect 0, read 0, write 0, timeout 465
+Requests/sec:  38133.55
+Transfer/sec:      9.35MB
+```
+
+
+### Stress test #4 (six processes)
+
+Six Node.js processes: `node cluster.js`
+
+```sh
+wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
+```
+
+* RAM usage: 546M
+* CPU Load average (over 1 minute): 6.62
+
+Results:
+
+```
+  10 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    33.75ms   47.46ms   1.89s    96.96%
+    Req/Sec     3.48k   395.30    11.27k    78.28%
+  20753578 requests in 10.00m, 4.97GB read
+Requests/sec:  34584.33
+Transfer/sec:      8.48MB
+```
+
+
+### Stress test #5 (eight processes)
 
 Eight Node.js processes: `node cluster.js`
 
@@ -105,13 +161,21 @@ Eight Node.js processes: `node cluster.js`
 wrk -t10 -c1000 -d600s http://192.168.20.25:3000/
 ```
 
-* RAM usage:
-* CPU Load average (over 1 minute):
+* RAM usage: 638M
+* CPU Load average (over 1 minute): 8.47
 
 Results:
 
 ```
-
+Running 10m test @ http://192.168.20.25:3000/
+  10 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    37.02ms   40.97ms   2.00s    95.90%
+    Req/Sec     3.17k   389.96     5.57k    77.40%
+  18904005 requests in 10.00m, 4.52GB read
+  Socket errors: connect 0, read 0, write 0, timeout 245
+Requests/sec:  31501.44
+Transfer/sec:      7.72MB
 ```
 
 
