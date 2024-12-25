@@ -1,7 +1,7 @@
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const path = require('path');
-const Fastify = require('fastify');
+const { spawn } = require('child_process');
 
 if (cluster.isPrimary) {
   console.log(`Primary ${process.pid} is running`);
@@ -15,21 +15,11 @@ if (cluster.isPrimary) {
     console.log(`worker ${worker.process.pid} died`);
   });
 } else {
-  // Run the Fastify app
+  // Run using fastify-cli
   process.env.NODE_ENV = 'production';
 
-  const start = async () => {
-    try {
-      const app = Fastify();
-      app.register(require('./app.js'));
+  const fastifyBin = path.join(__dirname, 'node_modules', '.bin', 'fastify');
+  const args = ['start', '-l', 'silent', '-a', '0.0.0.0', 'app.js'];
 
-      await app.listen({ port: 3000, host: '0.0.0.0' });
-      console.log(`Worker ${process.pid} started and listening on ${app.server.address().port}`);
-    } catch (err) {
-      console.error(err);
-      process.exit(1);
-    }
-  };
-
-  start();
+  spawn(fastifyBin, args, { stdio: 'inherit' });
 }
